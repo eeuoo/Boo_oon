@@ -4,9 +4,10 @@ from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash, check_password_hash
 from sqlalchemy import update
 from sqlalchemy.orm import relationship, backref, joinedload
-from flask_socketio import SocketIO, emit 
+from flask_socketio import SocketIO, emit, send
 import os
 from werkzeug.utils import secure_filename
+
 
 
 app = Flask(__name__)
@@ -470,6 +471,20 @@ def upload():
         print("Error >>", err)
 
     return jsonify({"path": path})
+
+@socket_io.on("message")
+def request(message):
+    print("message : "+ message)
+    to_client = dict()
+    
+    if message == 'new_connect':
+        to_client['message'] = "새로운 유저가 난입하였다!!"
+        to_client['type'] = 'connect'
+    else:
+        to_client['message'] = message
+        to_client['type'] = 'normal'
+    # emit("response", {'data': message['data'], 'username': session['username']}, broadcast=True)
+    send(to_client, broadcast=True)
 
 
 ############### teardown_appcontext #############################

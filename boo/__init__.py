@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.debug = True
+socket_io = SocketIO(app)
 
 app.config.update(
 	SECRET_KEY='X1243yRH!mMwf',
@@ -471,6 +472,8 @@ def upload():
         print("Error >>", err)
 
     return jsonify({"path": path})
+
+
 
 @socket_io.on("message")
 def request(message):

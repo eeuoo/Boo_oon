@@ -104,6 +104,7 @@ def chat():
     return render_template('boo_chat.html', islogin=islogin, user=user)
 
 
+
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
 def ifexists():
@@ -483,6 +484,7 @@ def request(message):
     if message == 'new_connect':
         to_client['message'] = "새로운 유저가 난입하였다!!"
         to_client['type'] = 'connect'
+        print('새로운 유저가 난입하였다!!!!!!!!!!!!!!!')
     else:
         to_client['message'] = message
         to_client['type'] = 'normal'

@@ -478,7 +478,6 @@ def upload():
 def chatting():
     return render_template('websocket2.html')
 
-
 @socket_io.on("message")
 def request(message):
     print("message : "+ message)
@@ -493,6 +492,7 @@ def request(message):
         to_client['type'] = 'normal'
     # emit("response", {'data': message['data'], 'username': session['username']}, broadcast=True)
     send(to_client, broadcast=True)
+
 
 
 ############### teardown_appcontext #############################

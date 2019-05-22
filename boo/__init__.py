@@ -474,6 +474,9 @@ def upload():
 
     return jsonify({"path": path})
 
+@app.route('/chat')
+def chatting():
+    return render_template('websocket2.html')
 
 
 @socket_io.on("message")
